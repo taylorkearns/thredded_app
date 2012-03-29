@@ -12,6 +12,9 @@ Thredded::Application.configure do
   # Specifies the header that your server uses for sending files
   config.action_dispatch.x_sendfile_header = "X-Sendfile"
 
+  # enforce that all models define their accessible attributes
+  # config.active_record.whitelist_attributes = true
+
   # For nginx:
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
 
