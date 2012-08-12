@@ -1,4 +1,8 @@
 Thredded::Application.configure do
+  if ENV['CANONICAL_HOST']
+    config.middleware.use Rack::CanonicalHost, ENV['CANONICAL_HOST']
+  end
+
   config.eager_load = true
   config.cache_classes = true
   config.consider_all_requests_local = false

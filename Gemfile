@@ -12,6 +12,7 @@ gem 'nokogiri'
 gem 'omniauth-github'
 gem 'pg'
 gem 'rails'
+gem 'rack-canonical-host'
 gem 'rspec-rails', '~> 2.12.2'
 gem 'thin'
 
