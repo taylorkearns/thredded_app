@@ -1,6 +1,5 @@
 class Topic < ActiveRecord::Base
   paginates_per 50 if self.respond_to?(:paginates_per)
-
   has_many   :posts, include: :attachments
   has_many   :topic_categories
   has_many   :categories, through: :topic_categories
@@ -14,8 +13,11 @@ class Topic < ActiveRecord::Base
   validates_presence_of [:last_user_id, :messageboard_id]
   validates_numericality_of :posts_count
 
-  attr_accessible :last_user, :locked, :messageboard, :posts_attributes,
-    :sticky, :type, :title, :user, :usernames, :category_ids
+  attr_accessible :category_ids, :last_user, :locked, :messageboard,
+    :posts_attributes, :sticky, :type, :title, :user, :usernames
+
+  accepts_nested_attributes_for :posts, reject_if: :updating?
+  accepts_nested_attributes_for :categories
 
   default_scope order('updated_at DESC')
 
@@ -30,31 +32,43 @@ class Topic < ActiveRecord::Base
   accepts_nested_attributes_for :posts, :reject_if => :updating?
   accepts_nested_attributes_for :categories
 
+  def self.on_page(page_num)
+    page(page_num).per(30)
+  end
+
+  def self.for_messageboard(messageboard)
+    where(messageboard_id: messageboard.id)
+  end
+
+  def self.order_by_updated
+    order('updated_at DESC')
+  end
+
   def self.full_text_search(query, messageboard_id)
     sql = <<-SQL
-    SELECT tops.*, pork.score * 100 as posts_count
-      FROM (
-        SELECT meat.id as id, sum(meat.rank) as score
-          FROM (
-            SELECT t.id as id, ts_rank(setweight(to_tsvector(p.content), 'B'), pquery) as rank
-              FROM topics t, posts p, to_tsquery('english', ?) as pquery
-             WHERE t.messageboard_id = ?
-               AND t.id              = p.topic_id
-               AND to_tsvector('english', p.content) @@ pquery
-             UNION ALL
-            SELECT t.id as id, ts_rank( setweight(to_tsvector('english', t.title), 'A'), tquery ) as rank
-              FROM topics t, to_tsquery('english', ?) as tquery
-             WHERE t.messageboard_id = ?
-               AND to_tsvector('english', t.title) @@ tquery
-               ) meat
-         GROUP BY meat.id
-         ORDER BY score desc LIMIT 50 OFFSET 0
-           ) pork, topics tops
-         where pork.id = tops.id
+      SELECT tops.*, pork.score * 100 as posts_count
+        FROM (
+          SELECT meat.id as id, sum(meat.rank) as score
+            FROM (
+              SELECT t.id as id, ts_rank(setweight(to_tsvector(p.content), 'B'), pquery) as rank
+                FROM topics t, posts p, to_tsquery('english', ?) as pquery
+               WHERE t.messageboard_id = ?
+                 AND t.id              = p.topic_id
+                 AND to_tsvector('english', p.content) @@ pquery
+               UNION ALL
+              SELECT t.id as id, ts_rank( setweight(to_tsvector('english', t.title), 'A'), tquery ) as rank
+                FROM topics t, to_tsquery('english', ?) as tquery
+               WHERE t.messageboard_id = ?
+                 AND to_tsvector('english', t.title) @@ tquery
+                 ) meat
+           GROUP BY meat.id
+           ORDER BY score desc LIMIT 50 OFFSET 0
+             ) pork, topics tops
+           where pork.id = tops.id
     SQL
 
     search_words = query.gsub(' ', '&' )
-    self.find_by_sql [sql, search_words, messageboard_id, search_words, messageboard_id]
+    find_by_sql [sql, search_words, messageboard_id, search_words, messageboard_id]
   end
 
   def public?
@@ -67,9 +81,10 @@ class Topic < ActiveRecord::Base
 
   def css_class
     classes = []
-    classes << "locked" if locked
-    classes << "sticky" if sticky
-    classes.empty? ?  "" : "class=\"#{classes.join(' ')}\"".html_safe
+    classes << 'locked' if locked
+    classes << 'sticky' if sticky
+    classes << 'private' if private?
+    classes.empty? ?  '' : "class=\"#{classes.join(' ')}\"".html_safe
   end
 
   def users
@@ -100,5 +115,4 @@ class Topic < ActiveRecord::Base
   def categories_to_sentence
     self.categories.map{ |c| c.name }.to_sentence if self.categories
   end
-
 end

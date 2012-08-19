@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120822023502) do
+ActiveRecord::Schema.define(:version => 20120825034741) do
 
   create_table "attachments", :force => true do |t|
     t.string   "attachment"
@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(:version => 20120822023502) do
     t.integer "category_id", :null => false
   end
 
+  add_index "topic_categories", ["category_id"], :name => "index_topic_categories_on_category_id"
   add_index "topic_categories", ["topic_id"], :name => "index_topic_categories_on_topic_id"
 
   create_table "topics", :force => true do |t|
