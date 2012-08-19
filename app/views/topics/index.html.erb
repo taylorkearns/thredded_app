@@ -12,21 +12,23 @@
     </nav>
 <% end %>
 
-<header>
-  <nav>
-    <ul>
-      <li><a href="/">Forums</a> &rarr; </li>
-    </ul>
-  </nav>
-  <h1><%= messageboard.title %></h1>
-  <h2>Recent Updates</h2>
-  <%= paginate @topics %>
+<% cache([messageboard, "topics_index_header"]) do %>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="/">Forums</a> &rarr; </li>
+      </ul>
+    </nav>
+    <h1><%= messageboard.title %></h1>
+    <h2>Recent Updates</h2>
+    <%= paginate @topics %>
 
-  <div class="title">Topic Title</div>
-  <div class="posts">Posts</div>
-  <div class="started">Started</div>
-  <div class="updated">Updated</div>
-</header>
+    <div class="title">Topic Title</div>
+    <div class="posts">Posts</div>
+    <div class="started">Started</div>
+    <div class="updated">Updated</div>
+  </header>
+<% end %>
 
 <section class="topics">
   <%= render :partial => "topics/topic_condensed", :collection => @sticky, :as => :t %>
