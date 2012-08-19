@@ -53,9 +53,9 @@ end
 group :development do
   gem 'debugger'
   gem 'faker'
+  gem 'foreigner'
   gem 'foreman'
   gem 'git_remote_branch'
   gem 'heroku'
-  gem 'foreigner'
   gem 'immigrant'
 end
