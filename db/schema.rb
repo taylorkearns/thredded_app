@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120819034324) do
+ActiveRecord::Schema.define(:version => 20120819125859) do
 
   create_table "attachments", :force => true do |t|
     t.string   "attachment"
@@ -181,5 +181,28 @@ ActiveRecord::Schema.define(:version => 20120819034324) do
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  add_foreign_key "attachments", "posts", :name => "attachments_post_id_fk"
+
+  add_foreign_key "categories", "messageboards", :name => "categories_messageboard_id_fk"
+
+  add_foreign_key "messageboards", "sites", :name => "messageboards_site_id_fk"
+
+  add_foreign_key "posts", "messageboards", :name => "posts_messageboard_id_fk"
+  add_foreign_key "posts", "topics", :name => "posts_topic_id_fk"
+  add_foreign_key "posts", "users", :name => "posts_user_id_fk"
+
+  add_foreign_key "private_users", "topics", :name => "private_users_private_topic_id_fk", :column => "private_topic_id"
+  add_foreign_key "private_users", "users", :name => "private_users_user_id_fk"
+
+  add_foreign_key "roles", "messageboards", :name => "roles_messageboard_id_fk"
+  add_foreign_key "roles", "users", :name => "roles_user_id_fk"
+
+  add_foreign_key "sites", "users", :name => "sites_user_id_fk"
+
+  add_foreign_key "topics", "categories", :name => "topics_category_id_fk"
+  add_foreign_key "topics", "messageboards", :name => "topics_messageboard_id_fk"
+  add_foreign_key "topics", "users", :name => "topics_last_user_id_fk", :column => "last_user_id"
+  add_foreign_key "topics", "users", :name => "topics_user_id_fk"
 
 end
