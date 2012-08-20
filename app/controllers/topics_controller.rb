@@ -32,6 +32,11 @@ class TopicsController < ApplicationController
     end
   end
 
+  def by_category
+    @sticky = get_sticky_topics
+    @topics = get_topics_by_category params[:category_id] 
+  end
+
   def create
     @topic = klass.create(params[:topic])
     redirect_to messageboard_topics_url(messageboard, :host => site.cached_domain)
@@ -58,6 +63,10 @@ class TopicsController < ApplicationController
 
   def get_search_results
     Topic.full_text_search(params[:q], messageboard.id)
+  end
+
+  def get_topics_by_category(category_id)
+    topics = Category.where(:id => category_id).first.topics.unstuck.order('updated_at DESC').page(params[:page]).per(30)
   end
 
   def get_topics

@@ -9,13 +9,17 @@ class Topic < ActiveRecord::Base
   belongs_to :messageboard, counter_cache: true, touch: true
 
   delegate :name, :name=, :email, :email=, to: :user, prefix: true
+
   validates_presence_of [:last_user_id, :messageboard_id]
   validates_numericality_of :posts_count
-  attr_accessible :last_user, :locked, :messageboard, :posts_attributes,
-    :sticky, :type, :title, :user, :usernames, :category_ids
+
+  attr_accessible :category_ids, :last_user, :locked, :messageboard,
+    :posts_attributes, :sticky, :type, :title, :user, :usernames
+
+  accepts_nested_attributes_for :posts, reject_if: :updating?
+  accepts_nested_attributes_for :categories
 
   default_scope order('updated_at DESC')
-  accepts_nested_attributes_for :posts, :reject_if => :updating?
 
   def self.stuck
     where('sticky = true')
@@ -99,5 +103,4 @@ class Topic < ActiveRecord::Base
   def categories_to_sentence
     self.categories.map{ |c| c.name }.to_sentence if self.categories
   end
-
 end
