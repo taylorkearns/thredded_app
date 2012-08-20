@@ -3,6 +3,12 @@
   <%= f.text_field :title, { :placeholder => 'Title', :tabindex => 1 } %>
 </p>
 
+<p class="category">
+  <% category_options = Category.find_by_sql('select * from categories where messageboard_id = 1').map { |cat| [cat.name, cat.id] } %>
+  <%= f.label :category %>
+  <%= f.select :category_id, category_options, {:include_blank => true}, :tabindex => 1 %>
+</p>
+
 <% if params[:type] == "private" -%>
   <%= f.hidden_field :type %>
   <p class="private_users">

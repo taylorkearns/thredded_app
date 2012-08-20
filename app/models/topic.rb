@@ -14,7 +14,7 @@ class Topic < ActiveRecord::Base
   validates_numericality_of :posts_count
 
   attr_accessible :last_user, :locked, :messageboard, :posts_attributes,
-    :sticky, :type, :title, :user, :usernames
+    :sticky, :type, :title, :user, :usernames, :category_id
 
   default_scope order('updated_at DESC')
 

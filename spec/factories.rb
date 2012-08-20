@@ -28,6 +28,11 @@ FactoryGirl.define do
   factory :category do
     name 'Funny'
     description 'Pictures of cats'
+
+    trait :beer do
+      name 'Beer'
+      description 'Nectar of the Gods!'
+    end
   end
 
   factory :messageboard do
@@ -105,6 +110,7 @@ FactoryGirl.define do
     trait :with_5_posts do
       posts { create_list(:post, 5) }
     end
+
   end
 
   factory :user do
