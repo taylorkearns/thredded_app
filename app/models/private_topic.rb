@@ -3,6 +3,10 @@ class PrivateTopic < Topic
   has_many :users, through: :private_users
   attr_accessible :user_id
 
+  def add_user(user)
+    user = User.find_by_name(user) if String == user.class
+    users << user
+  end
 
   def public?
     false
