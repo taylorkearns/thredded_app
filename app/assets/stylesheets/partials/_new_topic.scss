@@ -48,6 +48,17 @@
     width: 98%;
   }
 
+  p.category {
+    margin-top: 15px;
+
+    #topic_category_ids {
+      width: 100%;
+    }
+    .chzn-container-multi .chzn-choices {
+      @include border-radius(3px); 
+    }
+  }
+
   p.private_users {
     margin-top: 15px;
 

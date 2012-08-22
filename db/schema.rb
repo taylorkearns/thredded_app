@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120819125859) do
+ActiveRecord::Schema.define(:version => 20120822023502) do
 
   create_table "attachments", :force => true do |t|
     t.string   "attachment"
@@ -122,6 +122,13 @@ ActiveRecord::Schema.define(:version => 20120819125859) do
 
   add_index "sites", ["cached_domain"], :name => "index_sites_on_cached_domain"
 
+  create_table "topic_categories", :force => true do |t|
+    t.integer "topic_id",    :null => false
+    t.integer "category_id", :null => false
+  end
+
+  add_index "topic_categories", ["topic_id"], :name => "index_topic_categories_on_topic_id"
+
   create_table "topics", :force => true do |t|
     t.integer  "user_id"
     t.integer  "last_user_id"
@@ -133,11 +140,9 @@ ActiveRecord::Schema.define(:version => 20120819125859) do
     t.integer  "posts_count",     :default => 0
     t.string   "attribs",         :default => "[]"
     t.boolean  "sticky",          :default => false
-    t.integer  "category_id"
     t.boolean  "locked"
   end
 
-  add_index "topics", ["category_id"], :name => "index_topics_on_category_id"
   add_index "topics", ["messageboard_id", "updated_at"], :name => "index_topics_on_messageboard_id_and_updated_at"
 
   create_table "user_topic_reads", :force => true do |t|

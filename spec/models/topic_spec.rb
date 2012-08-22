@@ -17,49 +17,17 @@ describe Topic do
     @topic.public?.should be_true
   end
 
-  it "saves a category" do
-    @topic.category = create(:category)
-    @topic.save
-    @topic.category_id.should_not eq(nil)
+  describe ".add_category" do
+    before(:each) do
+      @category = create(:category)
+    end
+    it "saves a Category by id" do
+      @topic.category_ids= [@category.id]
+      @topic.save
+      @topic.categories.should include(@category)
+    end
   end
 
-  it "updates a category" do
-    category_1 = create(:category)
-    category_2 = create(:category, :beer)
-
-    @topic.category_id = category_1.id
-    @topic.save
-    @topic.category_id.should eq(category_1.id)
-
-    @topic.category_id = category_2.id
-    @topic.save
-
-    @topic.category_id.should_not eq(category_1.id)
-  end
-
-  it "saves a category for a private thread" do 
-    @topic = create(:private_topic)
-    @topic.category = create(:category)
-    @topic.save
-    @topic.category_id.should_not eq(nil)
-  end
-
-  it "updates a category for a private thread" do
-    @topic = create(:private_topic)
-
-    category_1 = create(:category)
-    category_2 = create(:category, :beer)
-
-    @topic.category_id = category_1.id
-    @topic.save
-    @topic.category_id.should eq(category_1.id)
-
-    @topic.category_id = category_2.id
-    @topic.save
-
-    @topic.category_id.should_not eq(category_1.id)
-
-  end
 
   it "changes updated_at when a new post is added" do
     old = @topic.updated_at

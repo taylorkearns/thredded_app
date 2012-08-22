@@ -7,6 +7,7 @@ jQuery(document).ready(function() {
 
   // chosen
   jQuery("#topics_new #topic_user_id").chosen();
+  jQuery("#topic_category_ids").chosen();
 
   // drawer under the topic field
   jQuery('.handle a').bind('click', function(){

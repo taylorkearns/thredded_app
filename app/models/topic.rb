@@ -2,11 +2,12 @@ class Topic < ActiveRecord::Base
   paginates_per 50 if self.respond_to?(:paginates_per)
 
   has_many   :posts, include: :attachments
-  has_many   :topic_post_searches
+  has_many   :topic_categories
+  has_many   :categories, through: :topic_categories
+
   belongs_to :last_user, class_name: 'User', foreign_key: 'last_user_id'
   belongs_to :user, counter_cache: true
   belongs_to :messageboard, counter_cache: true, touch: true
-  belongs_to :category
 
   delegate :name, :name=, :email, :email=, to: :user, prefix: true
 
@@ -14,7 +15,7 @@ class Topic < ActiveRecord::Base
   validates_numericality_of :posts_count
 
   attr_accessible :last_user, :locked, :messageboard, :posts_attributes,
-    :sticky, :type, :title, :user, :usernames, :category_id
+    :sticky, :type, :title, :user, :usernames, :category_ids
 
   default_scope order('updated_at DESC')
 
@@ -27,6 +28,7 @@ class Topic < ActiveRecord::Base
   end
 
   accepts_nested_attributes_for :posts, :reject_if => :updating?
+  accepts_nested_attributes_for :categories
 
   def self.full_text_search(query, messageboard_id)
     sql = <<-SQL
@@ -94,4 +96,9 @@ class Topic < ActiveRecord::Base
   def updating?
     self.id.present?
   end
+
+  def categories_to_sentence
+    self.categories.map{ |c| c.name }.to_sentence if self.categories
+  end
+
 end
