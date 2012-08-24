@@ -184,8 +184,6 @@ ActiveRecord::Schema.define(:version => 20120819125859) do
 
   add_foreign_key "attachments", "posts", :name => "attachments_post_id_fk"
 
-  add_foreign_key "categories", "messageboards", :name => "categories_messageboard_id_fk"
-
   add_foreign_key "messageboards", "sites", :name => "messageboards_site_id_fk"
 
   add_foreign_key "posts", "messageboards", :name => "posts_messageboard_id_fk"
@@ -200,7 +198,6 @@ ActiveRecord::Schema.define(:version => 20120819125859) do
 
   add_foreign_key "sites", "users", :name => "sites_user_id_fk"
 
-  add_foreign_key "topics", "categories", :name => "topics_category_id_fk"
   add_foreign_key "topics", "messageboards", :name => "topics_messageboard_id_fk"
   add_foreign_key "topics", "users", :name => "topics_last_user_id_fk", :column => "last_user_id"
   add_foreign_key "topics", "users", :name => "topics_user_id_fk"
