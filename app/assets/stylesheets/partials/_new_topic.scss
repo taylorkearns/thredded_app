@@ -38,6 +38,13 @@
   padding: 6px; 
 }
 
+.chosen_select {
+  margin-top: 15px;
+  .chzn-container-multi .chzn-choices {
+    @include border-radius(3px); 
+  }
+}
+
 .topic_form {
   label { display: block; clear: both; font-size: 12px; text-transform: lowercase; margin: 10px 0 4px 0; color: #888; font-size: 12px;  }
   .title label,
@@ -49,24 +56,18 @@
   }
 
   p.category {
-    margin-top: 15px;
+    @extend .chosen_select;
 
     #topic_category_ids {
       width: 100%;
     }
-    .chzn-container-multi .chzn-choices {
-      @include border-radius(3px); 
-    }
   }
 
   p.private_users {
-    margin-top: 15px;
+    @extend .chosen_select;
 
     #topic_user_id {
       width: 100%;
-    }
-    .chzn-container-multi .chzn-choices {
-      @include border-radius(3px); 
     }
   }
 

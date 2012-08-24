@@ -17,15 +17,11 @@ describe Topic do
     @topic.public?.should be_true
   end
 
-  describe ".add_category" do
-    before(:each) do
-      @category = create(:category)
-    end
-    it "saves a Category by id" do
-      @topic.category_ids= [@category.id]
-      @topic.save
-      @topic.categories.should include(@category)
-    end
+  it "should be able to handle category ids" do
+    @cat1 = create(:category)
+    @cat2 = create(:category, :beer)
+    @topic = Topic.create({:title =>"tghhgggt", :category_ids =>["", @cat1.id.to_s, @cat2.id.to_s], :locked =>"0", :sticky =>"0", :user => @user, :last_user => @user, :user_id => @user.id.to_s, :messageboard => @messageboard, :posts_attributes =>{"0"=>{:content =>"kkgjfhjgfkfghj", :filter =>"bbcode", :user => @user, :ip => "127.0.0.1", :messageboard => @messageboard}}})
+    @topic.valid?.should be_true
   end
 
 
