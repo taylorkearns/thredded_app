@@ -38,13 +38,6 @@
   padding: 6px; 
 }
 
-.chosen_select {
-  margin-top: 15px;
-  .chzn-container-multi .chzn-choices {
-    @include border-radius(3px); 
-  }
-}
-
 .topic_form {
   label { display: block; clear: both; font-size: 12px; text-transform: lowercase; margin: 10px 0 4px 0; color: #888; font-size: 12px;  }
   .title label,
@@ -64,23 +57,29 @@
   }
 
   p.private_users {
-    @extend .chosen_select;
-
     #topic_user_id {
       width: 100%;
     }
   }
 
   p.title input { 
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
     background: #f3f3f3;
     border: none;
     border-right: solid 3px #999;
     border-bottom: solid 3px #999;
     color: #333;
-    font-size: 26px; 
+    font-size: 26px;
     line-height: 24px;
     padding: 10px 6px 6px;
-    width: 98%;
+    width: 100%;
+
+    &:focus {
+      background: #f1f1f1;
+      outline: none;
+    }
   }
 
   p.submit input {

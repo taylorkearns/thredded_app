@@ -86,7 +86,6 @@ FactoryGirl.define do
     end
   end
 
-
   factory :site do
     user
     sequence(:subdomain) { |n| "site#{n}" }
@@ -110,7 +109,6 @@ FactoryGirl.define do
     trait :with_5_posts do
       posts { create_list(:post, 5) }
     end
-
   end
 
   factory :user do
