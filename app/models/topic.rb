@@ -32,6 +32,18 @@ class Topic < ActiveRecord::Base
   accepts_nested_attributes_for :posts, :reject_if => :updating?
   accepts_nested_attributes_for :categories
 
+  def self.on_page(page_num)
+    page(page_num).per(30)
+  end
+
+  def self.for_messageboard(messageboard)
+    where(messageboard_id: messageboard.id)
+  end
+
+  def self.order_by_updated
+    order('updated_at DESC')
+  end
+
   def self.full_text_search(query, messageboard_id)
     sql = <<-SQL
       SELECT tops.*, pork.score * 100 as posts_count

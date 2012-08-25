@@ -35,6 +35,7 @@ class TopicsController < ApplicationController
   def by_category
     @sticky = get_sticky_topics
     @topics = get_topics_by_category params[:category_id] 
+    @category_name = Category.find(params[:category_id]).name
   end
 
   def create
@@ -66,16 +67,16 @@ class TopicsController < ApplicationController
   end
 
   def get_topics_by_category(category_id)
-    topics = Category.where(:id => category_id).first.topics.unstuck.order('updated_at DESC').page(params[:page]).per(30)
+    topics = Category.find(category_id).topics.unstuck.for_messageboard(messageboard).order_by_updated.on_page(params[:page])
   end
 
   def get_topics
-    Topic.unstuck.where(messageboard_id: messageboard.id).order('updated_at DESC').page(params[:page]).per(30)
+    Topic.unstuck.for_messageboard(messageboard).order_by_updated.on_page(params[:page])
   end
 
   def get_sticky_topics
     if on_first_topics_page?
-      Topic.stuck.where(messageboard_id: messageboard.id).order('id DESC')
+      Topic.stuck.for_messageboard(messageboard).order('id DESC')
     else
       []
     end
