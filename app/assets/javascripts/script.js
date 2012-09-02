@@ -79,6 +79,9 @@ jQuery(document).ready(function() {
   ]
   jQuery('section.topics').chaves({ bindings: topic_bindings });
   jQuery('section.posts').chaves({ bindings: post_bindings });
+
+  // charbroil setup
+  // jQuery('.category_list').charbroil({modifier: ['command', 'alt']});
 });
 
 function pad(number, length) {
