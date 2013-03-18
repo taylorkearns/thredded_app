@@ -15,6 +15,8 @@ gem 'rails'
 gem 'rack-canonical-host'
 gem 'rspec-rails', '~> 2.12.2'
 gem 'thin'
+gem 'cache_digests'
+# gem 'thredded_resque'
 
 gem 'chosen-rails'
 gem 'coffee-rails', '~> 4.0.0'
