@@ -1,1 +1,31 @@
-<p>User: <%= @user.name %></p>
+<p>Username: <%= @user.name %></p>
+<p>Location: <%= @user.time_zone %> (should be location)</p>
+<p>Last activity: <%= time_ago_in_words(@user.last_sign_in_at) %> ago</p
+<p>Join date: <%= time_ago_in_words(@user.created_at) %> ago</p>
+<p>Total posts: <%= @user.posts_count %></p>
+<p>Total topics started: <%= @user.topics_count %></p>
+
+<br><br>
+
+<% unless @user.topics.nil? %>
+<table>
+    <th>
+      <tr>
+        <td>Title</td>
+        <td># Replies</td>
+        <td>Topic created</td>
+        <td>Last update</td>
+      </tr>
+    </th>
+  <% @user.topics.each do |t| %>
+    <% if t.type.nil? %>
+    <tr>
+      <td><%= t.title %></td>
+      <td><%= t.posts_count %></td>
+      <td><%= t.created_at %></td>
+      <td><%= t.updated_at %></td>
+    </tr>
+    <% end %>
+  <% end %>
+</table>
+<% end %>
