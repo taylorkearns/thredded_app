@@ -1,31 +1,58 @@
-<p>Username: <%= @user.name %></p>
-<p>Location: <%= @user.time_zone %> (should be location)</p>
-<p>Last activity: <%= time_ago_in_words(@user.last_sign_in_at) %> ago</p
-<p>Join date: <%= time_ago_in_words(@user.created_at) %> ago</p>
-<p>Total posts: <%= @user.posts_count %></p>
-<p>Total topics started: <%= @user.topics_count %></p>
+<% content_for :page_id do %>user-profile<% end %>
+<% content_for :page_title do %><%= @user.name %> | Users<% end %>
 
-<br><br>
+<div id="user-profile-header">
+  <%= image_tag @user.gravatar_url %>
+  <div id="user-profile-header-info">
+    <p><b>Username:</b> <%= @user.name %></p>
+    <p><b>Location:</b> <%= @user.time_zone %> (should be location)</p>
+    <p><b>Last activity:</b> <%= time_ago_in_words(@user.last_sign_in_at) %> ago</p
+    <p><b>Join date:</b> <%= time_ago_in_words(@user.created_at) %> ago</p>
+    <p><b>Total posts:</b> <%= @user.posts_count %></p>
+    <p><b>Total topics started:</b> <%= @user.topics_count %></p>
+  </div>
+</div>
 
-<% unless @user.topics.nil? %>
-<table>
-    <th>
-      <tr>
-        <td>Title</td>
-        <td># Replies</td>
-        <td>Topic created</td>
-        <td>Last update</td>
-      </tr>
-    </th>
-  <% @user.topics.each do |t| %>
-    <% if t.type.nil? %>
-    <tr>
-      <td><%= t.title %></td>
-      <td><%= t.posts_count %></td>
-      <td><%= t.created_at %></td>
-      <td><%= t.updated_at %></td>
-    </tr>
-    <% end %>
+<div id="user-profile-post-history">
+  <h2>Recent Forum History</h2>
+  <span>
+    <%= @user.topics_count %> topics started and <%= @user.posts_count %> posts since joining on <%= @user.created_at.strftime('%e %b %Y') %>
+  </span>
+
+  <% unless @user.topics.nil? %>
+    <table width="100%">
+        <tr>
+          <th class="user-profile-post-history-th-first">
+            Title
+          </th>
+          <th class="user-profile-post-history-th" width="100">
+            # Replies
+          </th>
+          <th class="user-profile-post-history-th" width="130">
+            Topic created
+          </th>
+          <th class="user-profile-post-history-th" width="130">
+            Last update
+          </th>
+        </tr>
+      <% @user.topics.each do |t| %>
+        <% if t.type.nil? %>
+        <tr>
+          <td class="user-profile-post-history-table-cell-first">
+            <%= t.title %>
+          </td>
+          <td class="user-profile-post-history-table-cell">
+            <%= t.posts_count %>
+          </td>
+          <td class="user-profile-post-history-table-cell">
+            <%= t.created_at.strftime('%e %b %Y') %>
+          </td>
+          <td class="user-profile-post-history-table-cell">
+            <%= t.updated_at.strftime('%e %b %Y') %>
+          </td>
+        </tr>
+        <% end %>
+      <% end %>
+    </table>
   <% end %>
-</table>
-<% end %>
+</div>
