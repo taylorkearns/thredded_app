@@ -1,5 +1,9 @@
 class User < ActiveRecord::Base
+  require 'gravtastic'
+  include Gravtastic
   include ActiveModel::Dirty
+
+  gravtastic :email, :size => 142
 
   has_many :identities
   has_many :sites
