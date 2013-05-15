@@ -13,7 +13,7 @@
   </div>
 </div>
 
-<div id="user-profile-post-history">
+<div id="user-profile-recent-posts">
   <h2>Recent Forum History</h2>
   <span>
     <%= @user.topics_count %> topics started and <%= @user.posts_count %> posts since joining on <%= @user.created_at.strftime('%e %b %Y') %>
@@ -22,32 +22,32 @@
   <% unless @user.topics.nil? %>
     <table width="100%">
         <tr>
-          <th class="user-profile-post-history-th-first">
+          <th class="user-profile-recent-posts-th-first">
             Title
           </th>
-          <th class="user-profile-post-history-th" width="100">
+          <th class="user-profile-recent-posts-th" width="100">
             # Replies
           </th>
-          <th class="user-profile-post-history-th" width="130">
+          <th class="user-profile-recent-posts-th" width="130">
             Topic created
           </th>
-          <th class="user-profile-post-history-th" width="130">
+          <th class="user-profile-recent-posts-th" width="130">
             Last update
           </th>
         </tr>
       <% @user.topics.each do |t| %>
         <% if t.type.nil? %>
         <tr>
-          <td class="user-profile-post-history-table-cell-first">
+          <td class="user-profile-recent-posts-table-cell-first">
             <%= t.title %>
           </td>
-          <td class="user-profile-post-history-table-cell">
+          <td class="user-profile-recent-posts-table-cell">
             <%= t.posts_count %>
           </td>
-          <td class="user-profile-post-history-table-cell">
+          <td class="user-profile-recent-posts-table-cell">
             <%= t.created_at.strftime('%e %b %Y') %>
           </td>
-          <td class="user-profile-post-history-table-cell">
+          <td class="user-profile-recent-posts-table-cell">
             <%= t.updated_at.strftime('%e %b %Y') %>
           </td>
         </tr>
@@ -55,4 +55,12 @@
       <% end %>
     </table>
   <% end %>
+</div>
+
+<div id="user-profile-post-history-graph">
+<% @recent_monthly_posts.each do |month, posts| %>
+  <div class="user-profile-post-history-graph-month post-history-<%= month.downcase %>" style="height: <%= posts.count * 5 %>px">
+    <%= posts.count %>
+  </div>
+<% end %>
 </div>

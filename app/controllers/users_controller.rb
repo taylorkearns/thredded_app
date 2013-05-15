@@ -6,7 +6,6 @@ class UsersController < ApplicationController
     unless @user
       redirect_to root_path, :flash => { :error => "No user exists named #{params[:id]}" }
     end
+    @recent_monthly_posts = @user.post_history_by_month
   end
-
 end
-

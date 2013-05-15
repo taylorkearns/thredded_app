@@ -21,7 +21,7 @@ body#user-profile {
     }
   }
 
-  #user-profile-post-history {
+  #user-profile-recent-posts {
     padding: 15px;
 
     h2 {
@@ -32,7 +32,7 @@ body#user-profile {
       padding: 10px 0 20px;
     }
 
-    .user-profile-post-history-th {
+    .user-profile-recent-posts-th {
       background-color: #dff0f9;
       text-align: center;
       color: #0070ad;
@@ -41,12 +41,12 @@ body#user-profile {
       padding: 10px 7px;
     }
 
-    .user-profile-post-history-th-first {
-      @extend .user-profile-post-history-th;
+    .user-profile-recent-posts-th-first {
+      @extend .user-profile-recent-posts-th;
       text-align: left;
     }
 
-    .user-profile-post-history-table-cell {
+    .user-profile-recent-posts-table-cell {
       color: #646363;
       padding: 8px;
       border: 1px solid #dff0f9;
@@ -54,8 +54,8 @@ body#user-profile {
       font-size: 14px;
     }
 
-    .user-profile-post-history-table-cell-first {
-      @extend .user-profile-post-history-table-cell;
+    .user-profile-recent-posts-table-cell-first {
+      @extend .user-profile-recent-posts-table-cell;
       text-align: left;
     }
 
@@ -65,5 +65,20 @@ body#user-profile {
       padding: 10px 0 20px;
       color: #646363;
     }
+  }
+
+  #user-profile-post-history-graph {
+    padding: 0 10px;
+  }
+
+  .user-profile-post-history-graph-month {
+    vertical-align: bottom;
+    text-align: center;
+    padding-top: 4px;
+    width: 50px;
+    display: inline-table;
+    background: #0070ad;
+    color: #fff;
+    margin-left: 9px;
   }
 }

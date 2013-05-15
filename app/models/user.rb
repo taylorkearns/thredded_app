@@ -113,6 +113,10 @@ class User < ActiveRecord::Base
       messageboard.public?
   end
 
+  def post_history_by_month
+    Post.find(:all).group_by { |post| post.created_at.strftime("%B") }
+  end
+
   private
 
   def self.create_from_omniauth(auth_hash)
