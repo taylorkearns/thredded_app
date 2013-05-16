@@ -78,7 +78,18 @@ body#user-profile {
     width: 50px;
     display: inline-table;
     background: #0070ad;
+    opacity: 0.5;
+    -webkit-opacity: 0.5;
+    -moz-opacity: 0.5;
+    filter:alpha(opacity=50);
     color: #fff;
     margin-left: 9px;
+
+    &:hover {
+      opacity: 1;
+      -webkit-opacity: 1;
+      -moz-opacity: 1;
+      filter:alpha(opacity=1);
+    }
   }
 }
