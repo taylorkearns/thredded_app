@@ -1,17 +1,18 @@
 <% content_for :page_id do %>user-profile<% end %>
 <% content_for :page_title do %><%= @user.name %> | Users<% end %>
 
-<div id="user-profile-header">
+<header>
   <%= image_tag @user.gravatar_url %>
-  <div id="user-profile-header-info">
-    <p><b>Username:</b> <%= @user.name %></p>
-    <p><b>Location:</b> <%= @user.time_zone %> (should be location)</p>
-    <p><b>Last activity:</b> <%= time_ago_in_words(@user.last_sign_in_at) %> ago</p
-    <p><b>Join date:</b> <%= time_ago_in_words(@user.created_at) %> ago</p>
-    <p><b>Total posts:</b> <%= @user.posts_count %></p>
-    <p><b>Total topics started:</b> <%= @user.topics_count %></p>
-  </div>
-</div>
+
+  <ul class="info">
+    <li><strong>Username:</strong> <%= @user.name %></li>
+    <li><strong>Location:</strong> <%= @user.time_zone %> (should be location)</li>
+    <li><strong>Last activity:</strong> <%= time_ago_in_words(@user.last_sign_in_at) %> ago</li>
+    <li><strong>Join date:</strong> <%= time_ago_in_words(@user.created_at) %> ago</li>
+    <li><strong>Total posts:</strong> <%= @user.posts_count %></li>
+    <li><strong>Total topics started:</strong> <%= @user.topics_count %></li>
+  </ul>
+</header>
 
 <div id="user-profile-recent-posts">
   <h2>Recent Forum History</h2>
