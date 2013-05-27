@@ -1,0 +1,120 @@
+#!/bin/bash
+
+COMMAND=$1
+PROVIDED_ENV=$2
+TIMESTAMP=$(date +"%m%d%Y%H%M%S")
+DUMP="thredded-prod.$TIMESTAMP.dump"
+BACKUP_URL="s3://joel-oliveira-backup/thredded/$DUMP"
+
+# =============================================================================
+
+function backup {
+  OLDEST_BACKUP=`heroku pgbackups --app $APP_ENV | tail -2 | head -1 | cut -f 1 -d " "`
+  heroku pgbackups:destroy $OLDEST_BACKUP --app $APP_ENV
+  heroku pgbackups:capture --app $APP_ENV
+  curl -o ./tmp/$DUMP `heroku pgbackups:url --app $APP_ENV`
+}
+
+function upload_to_s3 {
+  s3cmd put tmp/$DUMP s3://joel-oliveira-backup/thredded/
+  s3cmd setacl --acl-public $BACKUP_URL
+}
+
+function restore_to_staging {
+  S3_URL="https://joel-oliveira-backup.s3.amazonaws.com/thredded/$DUMP"
+  heroku pgbackups:restore HEROKU_POSTGRESQL_COPPER_URL "$S3_URL" --confirm thredded-staging --app thredded-staging
+}
+
+function restore_to_production {
+  BACKUP_FILE=`s3cmd ls s3://joel-oliveira-backup/thredded/ | tail -1 | cut -d '/' -f 5`
+  S3_URL="https://joel-oliveira-backup.s3.amazonaws.com/thredded/$BACKUP_FILE"
+  heroku pgbackups:restore HEROKU_POSTGRESQL_VIOLET_URL "$S3_URL"  --confirm thredded-prod --app thredded-prod
+}
+
+function set_environment {
+  if [ "$PROVIDED_ENV" == "production" ]; then
+    APP_ENV='thredded-prod'
+
+  elif [ "$PROVIDED_ENV" == "prod" ]; then
+    APP_ENV='thredded-prod'
+
+  elif [ "$PROVIDED_ENV" == "staging" ]; then
+    APP_ENV='thredded-staging'
+
+  else
+    APP_ENV='thredded-staging'
+  fi
+}
+
+function set_remote {
+  if [ $APP_ENV == "thredded-prod" ]; then
+    HEROKU_REMOTE="heroku-production"
+  elif [ $APP_ENV == "thredded-staging" ]; then
+    HEROKU_REMOTE="heroku-staging"
+  fi
+}
+
+function print_usage {
+  echo "usage: thredded backup       # backup prod db and upload to s3"
+  echo "       thredded mirror       # backup prod db, upload to s3 and restore to staging"
+  echo "       thredded restore      # restore latest db backup to production"
+  echo "       thredded localize     # restore latest db backup to local dev env"
+  echo ""
+  echo "       thredded restart env  # restart heroku for provided env"
+  echo "       thredded migrate env  # migrate db for provided env"
+  echo "       thredded deploy env   # push to github & heroku, migrate and restart for provided env"
+}
+
+# =============================================================================
+
+if [ "$COMMAND" == "" ]; then
+  print_usage
+fi
+
+if [ "$COMMAND" == "localize" ]; then
+  APP_ENV='thredded-prod'
+  backup
+  pg_restore --verbose --clean --no-acl --no-owner -d thredded_dev tmp/$DUMP
+fi
+
+if [ "$COMMAND" == "backup" ]; then
+  APP_ENV='thredded-prod'
+  backup
+  upload_to_s3
+fi
+
+if [ "$COMMAND" == "mirror" ]; then
+  APP_ENV='thredded-prod'
+  backup
+  upload_to_s3
+  restore_to_staging
+fi
+
+if [ "$COMMAND" == "restore" ]; then
+  read -p 'Are you sure you want to restore to production? (y/N)? '
+  if [ "$REPLY" == "y" ]; then
+    restore_to_production
+  else
+    exit
+  fi
+fi
+
+if [ "$COMMAND" == "restart" ]; then
+  set_environment
+  heroku restart --app $APP_ENV
+fi
+
+if [ "$COMMAND" == "migrate" ]; then
+  set_environment
+  heroku run rake db:migrate --app $APP_ENV && heroku restart --app $APP_ENV
+fi
+
+if [ "$COMMAND" == "deploy" ]; then
+  set_environment
+  set_remote
+
+  git push -f production production:master && \
+  git push -f $HEROKU_REMOTE production:master && \
+  heroku run rake db:migrate --app $APP_ENV && \
+  heroku restart --app $APP_ENV
+fi
