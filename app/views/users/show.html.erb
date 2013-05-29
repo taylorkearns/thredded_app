@@ -16,11 +16,13 @@
 
 <div id="user-profile-recent-posts">
   <h2>Recent Forum History</h2>
-  <span>
-    <%= @user.topics_count %> topics started and <%= @user.posts_count %> posts since joining on <%= @user.created_at.strftime('%e %b %Y') %>
-  </span>
 
-  <% unless @user.topics.nil? %>
+  <p>
+    <%= @user.topics_count %> topics started and <%= @user.posts_count %>
+    posts since joining on <%= @user.formatted_created_date %>
+  </p>
+
+  <% if @user.topics_count > 0 %>
     <table width="100%">
         <tr>
           <th class="user-profile-recent-posts-th-first">
