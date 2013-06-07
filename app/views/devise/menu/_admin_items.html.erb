@@ -1,3 +1,6 @@
 <% if user_signed_in? && current_user.superadmin? %>
   <li><%= link_to 'Admin', admin_root_path %></li>
 <% end %>
+<% if current_user.forem_admin? %>
+  <li><%= link_to 'Administrate', forem.admin_root_url %></li>
+<% end %>

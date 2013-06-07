@@ -103,6 +103,10 @@ class User < ActiveRecord::Base
     self.name
   end
 
+  def to_s
+    self.name
+  end
+
   def can_read_messageboard?(messageboard)
     ( messageboard.restricted_to_private? && self.member_of?(messageboard) ) ||
     ( messageboard.restricted_to_logged_in? && self.valid? ) ||

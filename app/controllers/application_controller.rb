@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   before_filter :touch_last_seen
   helper_method :default_site,
     :extra_data,
+    :forem_user,
     :messageboard,
     :site,
     :topic,
@@ -22,6 +23,10 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  def forem_user
+    current_user
+  end
 
   def merge_default_topics_params
     params.deep_merge!({
