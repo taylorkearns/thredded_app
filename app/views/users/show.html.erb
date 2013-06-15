@@ -6,7 +6,6 @@
 
   <ul class="info">
     <li><strong>Username:</strong> <%= @user.name %></li>
-    <li><strong>Location:</strong> <%= @user.time_zone %> (should be location)</li>
     <li><strong>Last activity:</strong> <%= time_ago_in_words(@user.last_sign_in_at) %> ago</li>
     <li><strong>Join date:</strong> <%= time_ago_in_words(@user.created_at) %> ago</li>
     <li><strong>Total posts:</strong> <%= @user.posts_count %></li>
