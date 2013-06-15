@@ -26,7 +26,7 @@
     <table width="100%">
       <thead>
         <tr>
-          <th class="title"> Title </th>
+          <th class="title table-first-column"> Title </th>
           <th class="replies" width="100"> # Replies </th>
           <th class="created" width="130"> Topic created </th>
           <th class="updated" width="130"> Last update </th>
@@ -38,12 +38,4 @@
         as: :topic %>
     </table>
   <% end %>
-</div>
-
-<div id="user-profile-post-history-graph">
-<% @recent_monthly_posts.each do |month, posts| %>
-  <div class="user-profile-post-history-graph-month post-history-<%= month.downcase %>" style="height: <%= posts.count * 5 %>px">
-    <%= posts.count %>
-  </div>
-<% end %>
 </div>

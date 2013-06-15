@@ -38,7 +38,7 @@ body#user-profile {
       padding: 10px 0 20px;
     }
 
-    .user-profile-recent-posts-th {
+    th {
       background-color: #dff0f9;
       text-align: center;
       color: #0070ad;
@@ -47,12 +47,7 @@ body#user-profile {
       padding: 10px 7px;
     }
 
-    .user-profile-recent-posts-th-first {
-      @extend .user-profile-recent-posts-th;
-      text-align: left;
-    }
-
-    .user-profile-recent-posts-table-cell {
+    td {
       color: #646363;
       padding: 8px;
       border: 1px solid #dff0f9;
@@ -60,42 +55,15 @@ body#user-profile {
       font-size: 14px;
     }
 
-    .user-profile-recent-posts-table-cell-first {
-      @extend .user-profile-recent-posts-table-cell;
-      text-align: left;
+    .table-first-column {
+      text-align: left !important;
     }
 
-    span {
+    p {
       float: right;
       font-size: 14px;
       padding: 10px 0 20px;
       color: #646363;
-    }
-  }
-
-  #user-profile-post-history-graph {
-    padding: 0 10px;
-  }
-
-  .user-profile-post-history-graph-month {
-    vertical-align: bottom;
-    text-align: center;
-    padding-top: 4px;
-    width: 50px;
-    display: inline-table;
-    background: #0070ad;
-    opacity: 0.5;
-    -webkit-opacity: 0.5;
-    -moz-opacity: 0.5;
-    filter:alpha(opacity=50);
-    color: #fff;
-    margin-left: 9px;
-
-    &:hover {
-      opacity: 1;
-      -webkit-opacity: 1;
-      -moz-opacity: 1;
-      filter:alpha(opacity=1);
     }
   }
 }
