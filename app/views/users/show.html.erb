@@ -19,7 +19,7 @@
 
   <p>
     <%= @user.topics_count %> topics started and <%= @user.posts_count %>
-    posts since joining on <%= @user.formatted_created_date %>
+    posts since joining on <%= formatted_user_profile_date(@user.created_at) %>
   </p>
 
   <% if @user.topics_count > 0 %>
