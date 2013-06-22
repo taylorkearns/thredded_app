@@ -1,6 +1,11 @@
 jQuery(document).ready(function() {
   not_a_touch_device = !('ontouchstart' in document.documentElement)
 
+  if($.cookie('qwoff')){ fartscroll(800); }
+  qwoff = function(){ toggle_fart(); }
+  konami = new Konami(qwoff);
+  konami.pattern = '38384040373937396665';
+
   jQuery('article .content').
     find('a[href^="http://"], a[href^="https://"]').
     attr('target', '_blank');
@@ -168,4 +173,14 @@ function adjust_tags(content, start) {
   }
 
   return content;
+}
+
+function toggle_fart() {
+  active = parseInt($.cookie('qwoff'));
+
+  if(active == 1){
+    $.cookie('qwoff', 0, { expires: -1, path: '/' });
+  } else if (active == 0 || typeof $.cookie('qwoff') === 'undefined') {
+    $.cookie('qwoff', 1, { expires: 1, path: '/' });
+  }
 }

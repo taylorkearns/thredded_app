@@ -17,4 +17,7 @@
 //= require prism
 //= require prism.ruby
 //= require prism.vim
+//= require jquery.cookie
+//= require konami
+//= require fartscroll
 //= require script
