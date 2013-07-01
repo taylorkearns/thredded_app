@@ -8,8 +8,12 @@ module PageObject
     attr_accessor :user
 
     def user(name='user', email='user@example.com')
-      @user = create(:user, name: name, email: email, password: 'password')
+      @user ||= create(:user, name: name, email: email, password: 'password')
       self
+    end
+
+    def name
+      @user.name
     end
 
     def log_in(name='me', email='me@example.com')
@@ -20,6 +24,10 @@ module PageObject
       fill_in 'Password', with: 'password'
       click_button 'Sign in'
       self
+    end
+
+    def join(messageboard)
+      messageboard.add_member(@user)
     end
 
     def create_topic(title)
