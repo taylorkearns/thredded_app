@@ -6,20 +6,37 @@ module PageObject
     include FactoryGirl::Syntax::Methods
 
     def initialize(options={})
-      @me = options[:user_one] || create(:user)
-      @them = options[:user_two] || create(:user)
-      @messageboard = options[:messageboard] || create(:messageboard)
-      @title = options[:title] || 'Secret topic'
-      @content = options[:content] || 'Hello'
+      @user_one     = options.fetch(:user_one) { create(:user) }
+      @user_two     = options.fetch(:user_two) { create(:user) }
+      @messageboard = options.fetch(:messageboard) { create(:messageboard) }
+      @title        = options.fetch(:title) { 'Secret topic' }
+      @content      = options.fetch(:content) { 'Hello' }
     end
 
-    def create
+    def create_in_messageboard
       visit messageboard_topics_path(@messageboard)
       find('.new_private_topic a').click
       fill_in 'topic_title', with: @title
-      select @them.name, from: 'topic_user_id'
+      select @user_two.name, from: 'topic_user_id'
       fill_in 'topic_posts_attributes_0_content', with: @content
       find('.submit input').click
+    end
+
+    def create_private_topic
+      private_topic = create(:private_topic,
+        title: @title,
+        user: @user_one.user,
+        users: [@user_one.user, @user_two.user],
+        messageboard: @messageboard,
+      )
+
+      create(:post,
+        content: @content,
+        topic: private_topic,
+        messageboard: @messageboard,
+      )
+
+      self
     end
 
     def listed?
@@ -28,8 +45,8 @@ module PageObject
     end
 
     def readable?
-      visit messageboard_private_topics_path(@messageboard)
-      click_on(@title)
+      topic = Topic.where(title: @title).first
+      visit messageboard_topic_posts_path(@messageboard, topic)
       has_content?(@content)
     end
 

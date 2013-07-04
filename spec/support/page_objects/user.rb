@@ -7,9 +7,8 @@ module PageObject
 
     attr_accessor :user
 
-    def user(name='user', email='user@example.com')
+    def create_user(name='user', email='user@example.com')
       @user ||= create(:user, name: name, email: email, password: 'password')
-      self
     end
 
     def name
