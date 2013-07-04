@@ -2,12 +2,12 @@ require 'spec_helper'
 
 feature 'Private topics' do
   scenario 'can be viewed by me' do
-    setup_defaults
-    joel = log_me_in
-    john = other_user
-    private_topic = private_topic_between(joel, john)
+    create(:app_config)
+    joel = create_and_log_me_in
+    john = create_other_user
+    private_topic = PageObject::PrivateTopic.between(joel, john)
 
-    private_topic.create_in_messageboard
+    private_topic.create_through_site
 
     expect(private_topic).to be_listed
     expect(private_topic).to be_readable
@@ -15,26 +15,23 @@ feature 'Private topics' do
   end
 
   scenario 'between others cannot be viewed by me' do
-    setup_defaults
-    joel = log_me_in
-    john = other_user('john')
-    sal  = other_user('sal')
-    private_topic = private_topic_without_me(sal, john)
+    create(:app_config)
+    joel = create_and_log_me_in
+    fred = create_other_user('fred')
+    sal  = create_other_user('sal')
+    private_topic = PageObject::PrivateTopic
+      .between(sal, fred)
+      .create_with_factory
 
     expect(private_topic).not_to be_listed
     expect(private_topic).not_to be_readable
   end
 
-  def setup_defaults
-    create(:app_config)
-    messageboard
-  end
-
   def messageboard
-    @messageboard ||= create(:messageboard)
+    @messageboard ||= Messageboard.first || create(:messageboard)
   end
 
-  def log_me_in
+  def create_and_log_me_in
     @log_me_in ||= begin
       me = PageObject::User.new.log_in
       me.join(messageboard)
@@ -42,31 +39,9 @@ feature 'Private topics' do
     end
   end
 
-  def other_user(name='john')
-    @other_user ||= begin
-      other_user = PageObject::User.new
-      other_user.create_user(name, "#{name}@example.com")
-      other_user.join(messageboard)
-      other_user
-    end
-  end
-
-  def private_topic_without_me(user_one, user_two)
-    PageObject::PrivateTopic.new(
-      user_one: user_one,
-      user_two: user_two,
-      messageboard: messageboard,
-      title: 'Shh',
-      content: 'Secret message',
-    ).create_private_topic
-  end
-
-  def private_topic_between(user_one, user_two)
-    PageObject::PrivateTopic.new(
-      user_one: user_one,
-      user_two: user_two,
-      messageboard: messageboard,
-      title: 'Ermagerdness',
-    )
+  def create_other_user(name='john')
+    user = create(:user, name: name, email: "#{name}@example.com")
+    user.member_of(messageboard)
+    user
   end
 end
