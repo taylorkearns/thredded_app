@@ -63,6 +63,7 @@ function print_usage {
   echo "       thredded restart env  # restart heroku for provided env"
   echo "       thredded migrate env  # migrate db for provided env"
   echo "       thredded deploy env   # push to github & heroku, migrate and restart for provided env"
+  echo "       thredded console env  # open up a console for the provided env"
 }
 
 # =============================================================================
@@ -97,6 +98,11 @@ if [ "$COMMAND" == "restore" ]; then
   else
     exit
   fi
+fi
+
+if [ "$COMMAND" == "console" ]; then
+  set_environment
+  heroku run console --app $APP_ENV
 fi
 
 if [ "$COMMAND" == "restart" ]; then
