@@ -1,12 +1,4 @@
 class RegistrationsController < Devise::RegistrationsController
-  def edit
-    if params['messageboard']
-      @preference = current_user_messageboard_preference
-    end
-
-    super
-  end
-
   def update
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
 
@@ -24,6 +16,24 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   private
+
+  def sign_up_params
+    params
+      .require(:user)
+      .permit(:name, :email, :password, :password_confirmation)
+  end
+
+  def resource_params
+    params
+      .require(:user)
+      .permit(
+        :name,
+        :time_zone,
+        :password,
+        :password_confirmation,
+        :current_password
+      )
+  end
 
   def update_status
     password_set? ?
@@ -44,15 +54,5 @@ class RegistrationsController < Devise::RegistrationsController
   def password_set?
     resource_params['password'].present? &&
       resource_params['password_confirmation'].present?
-  end
-
-  def current_user_messageboard_preference
-    current_user.
-      preferences.
-      find_or_create_by_messageboard_id(messageboard_id)
-  end
-
-  def messageboard_id
-    Messageboard.find_by_name(params['messageboard']['name']).id
   end
 end

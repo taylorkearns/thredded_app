@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130920151000) do
+ActiveRecord::Schema.define(:version => 20131005035311) do
 
   create_table "app_configs", :force => true do |t|
     t.string "permission",           :default => "public"
@@ -300,10 +300,9 @@ ActiveRecord::Schema.define(:version => 20130920151000) do
     t.datetime "updated_at"
     t.integer  "messageboard_id",                         :null => false
     t.string   "type"
-    t.integer  "posts_count",     :default => 0
-    t.string   "attribs",         :default => "[]"
-    t.boolean  "sticky",          :default => false
-    t.boolean  "locked",          :default => false
+    t.integer  "posts_count",     :default => 0,          :null => false
+    t.boolean  "sticky",          :default => false,      :null => false
+    t.boolean  "locked",          :default => false,      :null => false
     t.string   "slug"
     t.string   "hash_id",                                 :null => false
     t.string   "state",           :default => "approved", :null => false

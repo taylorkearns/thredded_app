@@ -8,21 +8,9 @@ feature 'User profile' do
 
   scenario 'viewed by another user' do
     user = other_user
-    user.create_topic('this is my thread')
     user.load_page
 
     expect(user).to be_displaying_the_profile
-    expect(user).to have_topic('this is my thread')
-  end
-
-  scenario 'can only see viewable threads' do
-    user = other_user
-    user.create_private_topic('secret')
-    user.create_unreadable_topic_in_private_messageboard('unreadable')
-    user.load_page
-
-    expect(user).not_to have_topic('secret')
-    expect(user).not_to have_topic('unreadable')
   end
 
   scenario 'redirects if it does not exist' do
@@ -34,7 +22,6 @@ feature 'User profile' do
 
   def setup_defaults
     create(:app_config)
-    create(:messageboard)
   end
 
   def anonymous_user

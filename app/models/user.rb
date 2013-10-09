@@ -7,21 +7,10 @@ class User < ActiveRecord::Base
 
   has_many :identities
 
-  attr_accessible :email,
-    :name,
-    :password,
-    :password_confirmation,
-    :post_filter,
-    :provider,
-    :remember_me,
-    :time_zone,
-    :uid
-
   devise :database_authenticatable,
     :recoverable,
     :registerable,
     :rememberable,
-    :token_authenticatable,
     :trackable
 
   validates :name,

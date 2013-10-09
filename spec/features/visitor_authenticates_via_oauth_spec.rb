@@ -3,7 +3,6 @@ require 'spec_helper'
 feature 'Visitor authenticates w/Oauth' do
   before do
     create(:app_config)
-    create_messageboard
   end
 
   scenario 'Signs up and signs in with GitHub' do
@@ -42,15 +41,6 @@ feature 'Visitor authenticates w/Oauth' do
     visitor.goes_to_edit_account
 
     expect(visitor).to be_signed_in_as_previous_user
-  end
-
-  scenario 'Signs in through a topic on a board postable by anyone logged in' do
-    visitor = the_new_visitor
-    visitor.visits_the_latest_thread_on(messageboard)
-    visitor.clicks_github_sign_in_link
-
-    expect(visitor).to be_logged_in
-    expect(visitor).to be_on_latest_thread_on(messageboard)
   end
 
   scenario 'Tries to sign up without an email address at GitHub' do

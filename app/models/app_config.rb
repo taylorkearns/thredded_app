@@ -1,6 +1,4 @@
 class AppConfig < ActiveRecord::Base
-  attr_accessible :description, :email_from, :email_subject_prefix,
-    :incoming_email_host, :permission, :title
   validates :description, presence: true
   validates :permission, presence: true
   validates :title, presence: true

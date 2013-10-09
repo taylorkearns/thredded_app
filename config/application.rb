@@ -2,13 +2,10 @@ require File.expand_path('../boot', __FILE__)
 require 'active_record/railtie'
 require 'action_controller/railtie'
 require 'action_mailer/railtie'
-require 'active_resource/railtie'
 require 'sprockets/railtie'
 require 'carrierwave'
 
-if defined?(Bundler)
-  Bundler.require(*Rails.groups(assets: %w(development test)))
-end
+Bundler.require(:default, Rails.env)
 
 module Thredded
   class Application < Rails::Application
@@ -33,8 +30,6 @@ module Thredded
     config.assets.initialize_on_precompile = false
     config.assets.version = '1.0'
 
-    config.action_view.javascript_expansions[:defaults] = %w(rails)
-    config.encoding = 'utf-8'
     config.filter_parameters += [:password, :password_confirmation]
   end
 end

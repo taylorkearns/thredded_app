@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
+  protect_from_forgery with: :exception
   helper_method :extra_data
 
   rescue_from CanCan::AccessDenied do |exception|
@@ -7,29 +7,7 @@ class ApplicationController < ActionController::Base
     redirect_to site_home
   end
 
-  def authenticate_admin_user!
-    unless current_user && current_user.superadmin?
-      redirect_to '/'
-    end
-  end
-
   private
-
-  def merge_default_topics_params
-    params.deep_merge!({
-      topic: {
-        last_user: current_user,
-        user: current_user,
-        posts_attributes: {
-          '0' => {
-            messageboard: messageboard,
-            ip: request.remote_ip,
-            user: current_user,
-          }
-        }
-      }
-    })
-  end
 
   def extra_data
     ''

@@ -8,35 +8,6 @@ FactoryGirl.define do
   sequence(:password) { |n| "password#{n}" }
   sequence(:topic_hash) { |n| "hash#{n}" }
 
-  factory :attachment do
-    attachment    { fixture_file_upload('spec/samples/img.png', 'image/png') }
-    content_type  'image/png'
-    file_size     1000
-
-    factory :imgpng
-
-    factory :pdfpng do
-      attachment  { fixture_file_upload('spec/samples/pdf.png', 'image/png') }
-    end
-
-    factory :txtpng do
-      attachment  { fixture_file_upload('spec/samples/txt.png', 'image/png') }
-    end
-
-    factory :zippng do
-      attachment  { fixture_file_upload('spec/samples/zip.png', 'image/png') }
-    end
-  end
-
-  factory :category do
-    sequence(:name) { |n| "category#{n}" }
-    sequence(:description) { |n| "Category #{n}" }
-
-    trait :beer do
-      name 'Beer'
-      description 'Nectar of the Gods!'
-    end
-  end
 
   factory :email, class: OpenStruct do
     to 'email-token'
@@ -76,7 +47,7 @@ FactoryGirl.define do
     provider 'github'
   end
 
-  factory :messageboard do
+  factory :messageboard, class: Thredded::Messageboard do
     sequence(:name) { |n| "messageboard#{n}" }
     sequence(:title) { |n| "Messageboard #{n}" }
     description 'This is a description of the messageboard'
@@ -104,7 +75,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :post do
+  factory :post, class: Thredded::Post do
     user
     topic
     messageboard
@@ -122,51 +93,6 @@ FactoryGirl.define do
     filter 'bbcode'
   end
 
-  factory :preference do
-    notify_on_mention false
-    notify_on_message false
-    user
-    messageboard
-  end
-
-  factory :private_topic do
-    user
-    messageboard
-    title 'New private topic started here'
-    association :last_user, factory: :user
-  end
-
-  factory :private_user do
-    private_topic_id 1
-    user_id 1
-  end
-
-  factory :role do
-    level 'admin'
-    messageboard
-    user
-
-    trait :inactive do
-      last_seen 3.days.ago
-    end
-
-    trait :admin do
-      level 'admin'
-    end
-
-    trait :superadmin do
-      level 'superadmin'
-    end
-
-    trait :moderator do
-      level 'moderator'
-    end
-
-    trait :member do
-      level 'member'
-    end
-  end
-
   factory :app_config do
     permission           'public'
     title                'Default website'
@@ -174,38 +100,6 @@ FactoryGirl.define do
     email_from           'Site <email@email.com>'
     email_subject_prefix '[Email] '
     incoming_email_host  'reply.email.com'
-  end
-
-  factory :topic do
-    ignore do
-      with_posts 0
-      with_categories 0
-    end
-
-    user
-    messageboard
-    association :last_user, factory: :user
-
-    title 'New topic started here'
-    hash_id { FactoryGirl.generate(:topic_hash) }
-
-    trait :locked do
-      locked 't'
-    end
-
-    trait :unlocked do
-      locked 'f'
-    end
-
-    after(:create) do |topic, evaluator|
-      evaluator.with_posts.times do
-        create(:post, topic: topic, messageboard: topic.messageboard)
-      end
-
-      evaluator.with_categories.times do
-        topic.categories << create(:category)
-      end
-    end
   end
 
   factory :user do

@@ -1,8 +1,6 @@
 @charset "UTF-8";
 @import "compass";
 @import "font-icons";
-@include font-icon-family(entypo);
-@include font-icon-family(iconic);
 
 @font-face {
   font-family: 'Socialico';
@@ -51,7 +49,5 @@ $serif-font-family: Georgia, Cambria, "Times New Roman", Times, serif;
 @import "partials/admin";
 @import "partials/chaves";
 @import "partials/user_mgmt";
-@import "chosen/chosen-base";
-@import "chosen/chosen-single";
-@import "chosen/chosen-multi";
+@import "chosen";
 @import "partials/pseudo_sidebar";

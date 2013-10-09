@@ -1,8 +1,4 @@
 module Features
-  def default_messageboard
-    @messageboard ||= create(:messageboard)
-  end
-
   def default_user
     @user ||= create(:user, password:'password', password_confirmation:'password')
   end
@@ -33,7 +29,6 @@ module Features
     save_and_open_page
   end
 
-  alias create_default_messageboard default_messageboard
   alias create_default_user default_user
   alias create_default_config default_config
 end
