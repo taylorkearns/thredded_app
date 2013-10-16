@@ -4,7 +4,7 @@ end
 
 
 Given /^the thread "([^"]*)" is sticky$/ do |title|
-  @topic = Topic.where(title: title).first
+  @topic = Thredded::Topic.where(title: title).first
   @topic.update_attribute(:sticky, true)
 end
 

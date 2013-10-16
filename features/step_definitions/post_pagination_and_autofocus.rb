@@ -1,12 +1,16 @@
 Given /^posts are paginated every (\d+) posts$/ do |post_num|
-  Post.paginates_per post_num.to_i
+  Thredded::Post.paginates_per post_num.to_i
 end
 
 Given /^the latest thread on "([^"]*)" has (\d+) posts$/ do |name, post_num|
-  board = Messageboard.where(name: name).first
+  board = Thredded::Messageboard.where(name: name).first
   @topic = create(:topic, messageboard: board)
 
   create_list :post, post_num.to_i, topic: @topic, messageboard: board
+end
+
+Then /^the latest read post should not be set$/ do
+  page.should have_css("section[data-latest-read='null']")
 end
 
 Then /^the latest read post should be the (first|fifth|sixth) post$/ do |post_index|
@@ -19,7 +23,7 @@ Then /^the latest read post should be the (first|fifth|sixth) post$/ do |post_in
     post = @topic.posts[5]
   end
 
-  page.should have_css("body[data-latest-read='#{post.id}']")
+  page.should have_css("section[data-latest-read='#{post.id}']")
   page.should have_css("article#post_#{post.id}")
 end
 
@@ -40,4 +44,8 @@ end
 
 Then /^I should see page (\d+)$/ do |page_num|
   page.should have_css('.page.current', text: page_num)
+end
+
+When(/^I click the last updated topic$/) do
+  first('article.topic:first h1 a').click
 end

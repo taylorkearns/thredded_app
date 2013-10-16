@@ -1,6 +1,4 @@
 Thredded::Application.routes.draw do
-  mount Thredded::Engine => '/forum'
-
   devise_for :users, controllers: {
     registrations: 'registrations',
     sessions: 'sessions'
@@ -27,5 +25,6 @@ Thredded::Application.routes.draw do
   get '/user/forgot_password' => redirect('/users/password/new')
   get '/user/forgot_username' => redirect('/users/password/new')
 
+  mount Thredded::Engine => '/'
   root to: 'thredded/messageboards#index'
 end

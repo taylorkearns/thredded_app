@@ -1,7 +1,7 @@
 Given /^a new thread by "([^"]*)" named "([^"]*)" exists on "([^"]*)"$/ do |username, title, messageboard|
   @user = User.where(name: username).first ||
     create(:user, name: "#{username}s", email: "#{username}s@example.com")
-  @messageboard = Messageboard.where(name: messageboard).first
+  @messageboard = Thredded::Messageboard.where(name: messageboard).first
   @topic = create(:topic, title: title, messageboard: @messageboard,
     user: @user, last_user: @user)
   @post = create(:post, user: @user, topic: @topic)
@@ -40,7 +40,7 @@ Given /^the ([^"]*) post on the most recent thread is not mine/ do |position|
 end
 
 Given /^the last post is formatted with "(.*?)"$/ do |filter|
-  last_post = Post.last
+  last_post = Thredded::Post.last
   last_post.update_attribute(:filter, filter)
 end
 

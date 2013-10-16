@@ -16,13 +16,6 @@ Feature: Reply to a thread
       And I submit some drivel like "oh my god this is the greatest, most [i]AMAZING[/i] thread of ALL TIME."
      Then I should see "oh my god this is the greatest, most AMAZING thread of ALL TIME."
 
-  Scenario: The member adds a new reply with the textile filter
-    Given a thread already exists on "thredded"
-     When I go to the most recently updated thread on "thredded"
-      And I select "textile" from "post_filter"
-      And I submit some drivel like "oh my god this is the greatest, most __AMAZING__ thread of ALL TIME."
-     Then I should see "oh my god this is the greatest, most AMAZING thread of ALL TIME."
-
   Scenario: The member has a default post filter preference
     Given a thread already exists on "thredded"
       And My post filter preference is "markdown"

@@ -6,13 +6,12 @@ end
 
 Given /^I am a member of "(.*)"$/ do |name|
   user = User.last
-  user.member_of Messageboard.find_by_name(name)
-  user.reload
+  Thredded::Messageboard.where(name: name).first.add_member user
 end
 
 Given /^I am not a member of "(.*)"$/ do |name|
   user = User.last
-  user.roles.delete_all
+  user.thredded_roles.delete_all
   user.reload
 end
 
@@ -22,5 +21,6 @@ Given /^I am an anonymous visitor$/ do
 end
 
 Given /^I am an admin for "([^"]*)"$/ do |name|
-  @current_user.admin_of Messageboard.find_by_name(name)
+  messageboard = Thredded::Messageboard.where(name: name).first
+  messageboard.add_member @current_user, 'admin'
 end

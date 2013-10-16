@@ -1,6 +1,6 @@
 Given /^there is a messageboard named "([^"]*)"$/ do |messageboard|
   @app_config ||= create(:app_config)
-  create(:messageboard, name: messageboard, title: messageboard)
+  create(:messageboard, name: messageboard, slug: messageboard)
 end
 
 Given /^there are two messageboards named "([^"]*)" and "([^"]*)"$/ do |messageboard1, messageboard2|

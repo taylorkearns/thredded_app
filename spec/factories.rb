@@ -49,7 +49,7 @@ FactoryGirl.define do
 
   factory :messageboard, class: Thredded::Messageboard do
     sequence(:name) { |n| "messageboard#{n}" }
-    sequence(:title) { |n| "Messageboard #{n}" }
+    sequence(:slug) { |n| "messageboard#{n}" }
     description 'This is a description of the messageboard'
     security 'public'
     posting_permission  'anonymous'
@@ -75,6 +75,14 @@ FactoryGirl.define do
     end
   end
 
+  factory :topic, class: Thredded::Topic do
+    user
+    messageboard
+    association :last_user, factory: :user
+
+    title 'New topic started here'
+  end
+
   factory :post, class: Thredded::Post do
     user
     topic
@@ -83,6 +91,11 @@ FactoryGirl.define do
     sequence(:content) { |n| "A post about the number #{n}" }
     ip '127.0.0.1'
     filter 'bbcode'
+  end
+
+  factory :category, class: Thredded::Category do
+    sequence(:name) { |n| "category#{n}" }
+    sequence(:description) { |n| "Category #{n}" }
   end
 
   factory :post_notification
@@ -128,7 +141,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :user_topic_read do
+  factory :user_topic_read, class: Thredded::UserTopicRead do
     user_id 1
     topic_id 1
     post_id 1

@@ -39,7 +39,11 @@ class User < ActiveRecord::Base
   end
 
   def to_param
-    self.name
+    name
+  end
+
+  def to_s
+    to_param
   end
 
   private

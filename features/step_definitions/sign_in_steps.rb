@@ -12,7 +12,7 @@ Given /^I signed up with "(.*)\/(.*)"$/ do |email, password|
 end
 
 Given /^I am signed up and confirmed as "(.*)\/(.*)"$/ do |email, password|
-  user = create :user, name: email.split('@').first, email: email,
+  user = create :user, name: email.split('@').first.downcase, email: email,
     password: password, password_confirmation: password
 end
 

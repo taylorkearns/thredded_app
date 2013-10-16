@@ -5,7 +5,7 @@ Feature: Add a new thread
 
 Background: Default site and messageboard
     Given there is a messageboard named "thredded"
-      And I am signed in as "Joel"
+      And I am signed in as "joel"
       And I am a member of "thredded"
       And "thredded" is "public"
 
@@ -25,10 +25,10 @@ Background: Default site and messageboard
           | topic 3     | I should be the very latest |
      When I go to the messageboard "thredded"
      Then the topic listing should look like the following:
-          | Topic Title | Posts | Started | Updated |
-          | topic 3     | 1     | Joel    | Joel    |
-          | topic 2     | 1     | Joel    | Joel    |
-          | topic 1     | 1     | Joel    | Joel    |
+          | Posts | Topic Title | Started | Updated |
+          | 1     | topic 3     | joel    | joel    |
+          | 1     | topic 2     | joel    | joel    |
+          | 1     | topic 1     | joel    | joel    |
 
   Scenario: An admin can lock or pin a new thread
     Given I am a admin of "thredded"

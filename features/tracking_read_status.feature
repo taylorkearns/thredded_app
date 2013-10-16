@@ -5,7 +5,7 @@ Feature: Tracking user behavior in a topic
 
 Background: Default site and messageboard
     Given there is a messageboard named "thredded"
-      And I am signed in as "Joel"
+      And I am signed in as "joel"
       And I am a member of "thredded"
       And "thredded" is "public"
 

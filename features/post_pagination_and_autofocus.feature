@@ -13,13 +13,13 @@ Background: Default site and messageboard
   Scenario: The member visits and revisits the latest thread
     Given the latest thread on "thredded" has 6 posts
      When I go to the most recently updated thread on "thredded"
-     Then the latest read post should be the first post
+     Then the latest read post should not be set
      When I go to the most recently updated thread on "thredded" again
      Then the latest read post should be the fifth post
      When I click to page 2 and view the latest post
       And 2 more people post on the latest thread
       And I go to the topic listing page
-      And I go to the most recently updated thread on "thredded" again
+      And I click the last updated topic
      Then I should see page 2
       And I should see 3 posts
       And the latest read post should be the sixth post
