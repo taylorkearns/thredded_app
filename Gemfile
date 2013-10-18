@@ -2,8 +2,8 @@ source 'https://rubygems.org'
 
 ruby '2.0.0'
 
-gem 'thredded', path: '~/Development/thredded'
-gem 'activerecord-session_store'
+gem 'thredded'
+gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
 gem 'devise', '3.0.0.rc'
 gem 'escape_utils'
 gem 'friendly_id', '5.0.0.rc2'
@@ -11,7 +11,7 @@ gem 'gravtastic', '3.1.0'
 gem 'nokogiri'
 gem 'omniauth-github'
 gem 'pg'
-gem 'rails', '~> 4.0.0'
+gem 'rails'
 gem 'rspec-rails', '~> 2.12.2'
 gem 'thin'
 
@@ -20,7 +20,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'compass-rails', '~> 2.0.alpha.0'
 gem 'font-icons-rails', github: 'shorelabs/font-icons-rails'
 gem 'jquery-rails'
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails'
 gem 'therubyracer'
 gem 'uglifier'
 
@@ -29,7 +29,7 @@ group :test, :cucumber do
   gem 'bourne'
   gem 'capybara', '~> 2.0.2'
   gem 'chronic'
-  gem 'cucumber-rails', '~> 1.3.0', require: false
+  gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'email_spec', '1.4.0'
   gem 'factory_girl_rails', '~> 4.1.0'
