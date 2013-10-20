@@ -26,8 +26,8 @@ ActiveRecord::Schema.define(version: 20131020015404) do
     t.integer  "user_id",    null: false
     t.string   "provider",   null: false
     t.string   "uid",        null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "identities", ["uid"], name: "index_identities_on_uid", using: :btree
@@ -209,8 +209,8 @@ ActiveRecord::Schema.define(version: 20131020015404) do
   create_table "thredded_messageboard_preferences", force: true do |t|
     t.boolean  "notify_on_mention", default: true
     t.boolean  "notify_on_message", default: true
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "user_id",                                null: false
     t.integer  "messageboard_id",                        null: false
     t.string   "filter",            default: "markdown", null: false
@@ -240,8 +240,8 @@ ActiveRecord::Schema.define(version: 20131020015404) do
   create_table "thredded_post_notifications", force: true do |t|
     t.string   "email",      null: false
     t.integer  "post_id",    null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "thredded_post_notifications", ["post_id"], name: "index_thredded_post_notifications_on_post_id", using: :btree
@@ -305,8 +305,8 @@ ActiveRecord::Schema.define(version: 20131020015404) do
     t.integer  "posts_count",     default: 0,          null: false
     t.boolean  "sticky",          default: false,      null: false
     t.boolean  "locked",          default: false,      null: false
-    t.string   "slug"
     t.string   "hash_id",                              null: false
+    t.string   "slug"
     t.string   "state",           default: "approved", null: false
   end
 
@@ -345,8 +345,8 @@ ActiveRecord::Schema.define(version: 20131020015404) do
     t.integer  "post_id",                 null: false
     t.integer  "posts_count", default: 0, null: false
     t.integer  "page",        default: 1, null: false
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "thredded_user_topic_reads", ["page"], name: "index_thredded_user_topic_reads_on_page", using: :btree
@@ -360,7 +360,6 @@ ActiveRecord::Schema.define(version: 20131020015404) do
     t.string   "email",                              default: "",                           null: false
     t.string   "encrypted_password",     limit: 128, default: "",                           null: false
     t.string   "reset_password_token"
-    t.string   "remember_token"
     t.datetime "remember_created_at"
     t.integer  "sign_in_count",                      default: 0
     t.datetime "current_sign_in_at"
