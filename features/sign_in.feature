@@ -5,32 +5,32 @@ Feature: Sign in
 
  Background: Default site
    Given there is a messageboard named "thredded"
+     And we are eating emails
 
    Scenario: User is not signed up
     When I go to the sign in page
-     And I sign in as "fake@person.com/password"
+     And I sign in as "fake@example.com/password"
     Then I should see "Invalid email or password."
      And I should see "Login"
 
    Scenario: User enters wrong password
-   Given I am signed up and confirmed as "confirmed@person.com/password"
+   Given I am signed up and confirmed as "confirmed@example.com/password"
     When I go to the sign in page
-     And I sign in as "email@person.com/wrongpassword"
+     And I sign in as "email@example.com/wrongpassword"
     Then I should see "Invalid email or password."
      And I should see "Login"
 
    Scenario: User signs in successfully
-   Given I am signed up and confirmed as "email@person.com/password"
+   Given I am signed up and confirmed as "email@example.com/password"
     When I go to the sign in page
-     And I sign in as "email@person.com/password"
+     And I sign in as "email@example.com/password"
     Then I should see "Signed in"
 
   Scenario: User requests new password
-   Given I am signed up and confirmed as "confirmed@person.com/blarghyblargh"
+   Given I am signed up and confirmed as "confirmed@example.com/blarghyblargh"
     When I go to the forgot password page
-     And I fill in "Email" with "confirmed@person.com"
+     And I fill in "Email" with "confirmed@example.com"
      And I press "Send me reset password instructions"
-    Then "confirmed@person.com" should receive an email
-    When "confirmed@person.com" opens the email
+    When "confirmed@example.com" opens the email
     Then they should see "Reset password instructions" in the email subject
      And they should see "Someone has requested a link to change your password" in the email body

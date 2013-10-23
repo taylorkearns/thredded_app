@@ -1,12 +1,7 @@
 Devise.setup do |config|
   require 'devise/orm/active_record'
 
-  if AppConfig.table_exists? && AppConfig.count > 0
-    config.mailer_sender = AppConfig.first.email_from
-  else
-    config.mailer_sender = 'thredded@change-this-address.com'
-  end
-
+  config.mailer_sender = 'no-reply@thredded.com' # or your own address
   config.authentication_keys = [:email]
   config.case_insensitive_keys = [:email]
   config.stretches = 10

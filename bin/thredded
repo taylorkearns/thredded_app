@@ -48,9 +48,9 @@ function set_environment {
 
 function set_remote {
   if [ $APP_ENV == "thredded-prod" ]; then
-    HEROKU_REMOTE="heroku-production"
+    HEROKU_REMOTE="production"
   elif [ $APP_ENV == "thredded-staging" ]; then
-    HEROKU_REMOTE="heroku-staging"
+    HEROKU_REMOTE="staging"
   fi
 }
 
@@ -119,8 +119,8 @@ if [ "$COMMAND" == "deploy" ]; then
   set_environment
   set_remote
 
-  git push -f production production:master && \
-  git push -f $HEROKU_REMOTE production:master && \
+  git push -f thredded.com deploy:master && \
+  git push -f $HEROKU_REMOTE deploy:master && \
   heroku run rake db:migrate --app $APP_ENV && \
   heroku restart --app $APP_ENV
 fi

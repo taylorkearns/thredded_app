@@ -15,6 +15,10 @@ section#contentwrap #messageboards {
     padding: 1% 1% 1% 1%;
     position: relative;
 
+    @include respond-to(s) {
+      > p { display: none; }
+    }
+
     @include respond-to(xs) {
       border: none;
       padding: 10px;
@@ -23,6 +27,9 @@ section#contentwrap #messageboards {
     &.active {
       background: #e8f3f9;
     }
+
+    p { font-size: 12px; margin-top: 6px; }
+    > p { margin-left: 30px; }
 
     header {
       background: transparent url(/images/thread_sprite.gif) 6px -89px no-repeat;
@@ -62,8 +69,6 @@ section#contentwrap #messageboards {
     &.private header {
       background-position: 6px -57px;
     }
-
-    p { font-size: 12px; margin-top: 6px; }
 
     footer {
       position: absolute;

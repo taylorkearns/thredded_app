@@ -1,3 +1,7 @@
+Given(/^we are eating emails$/) do
+  ActionMailer::Base.delivery_method = :test
+end
+
 Then /^I should see error messages$/ do
   step %{I should see "errors prohibited"}
 end
