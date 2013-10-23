@@ -110,7 +110,7 @@ jQuery(document).ready(function() {
 
     jQuery('#messageboards').chaves();
 
-    jQuery('.topics').chaves({
+    jQuery('section.topics').chaves({
       childSelector: 'article',
       bindings: topic_bindings
     });
