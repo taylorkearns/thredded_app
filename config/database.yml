@@ -5,10 +5,12 @@ defaults: &defaults
 
 development:
   <<: *defaults
+  host: localhost
   database: thredded_dev
 
 test:
   <<: *defaults
+  host: localhost
   database: thredded_test
 
 production:
