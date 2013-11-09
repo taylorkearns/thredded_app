@@ -7,6 +7,11 @@
   color: red;
 }
 
+#topic_user_id,
+#topic_category_ids {
+  width: 100%;
+}
+
 /* Kube Forms */
 
 .forms label {
@@ -429,7 +434,7 @@ input.input-search {
   .submit input {
     @extend .btn;
     @extend .btn-square;
-    margin-top: 10px;
+    margin-bottom: 10px;
 
     @include respond-to(lts){
       width: 100%;

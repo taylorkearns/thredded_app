@@ -10,7 +10,7 @@
 //= require jquery_nested_form
 //= require jquery.easing
 //= require jquery.chaves
-//= require jquery.chosen
+//= require chosen-jquery
 //= require jquery.fitvids
 //= require jquery.scrollTo
 //= require jquery.timeago
