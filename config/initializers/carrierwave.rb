@@ -10,6 +10,7 @@ else
       aws_access_key_id:     ENV['AWS_ACCESS_KEY_ID'],
       aws_secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
       persistent:            false,
+      path_style:            true,
     }
     config.fog_directory  = 'assets.thredded.com'                    # required
     config.asset_host     = 'http://assets.thredded.com'             # optional, defaults to nil
