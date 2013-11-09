@@ -326,7 +326,7 @@ GEM
     thor (0.18.1)
     thread_safe (0.1.3)
       atomic
-    thredded (0.0.10)
+    thredded (0.0.11)
       bb-ruby
       cancan
       carrierwave
