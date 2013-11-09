@@ -15,7 +15,7 @@ gem 'rails'
 gem 'rspec-rails', '~> 2.12.2'
 gem 'thin'
 gem 'cache_digests'
-gem 'unf'
+gem 'fog', '1.4.0'
 
 gem 'chosen-rails'
 gem 'coffee-rails', '~> 4.0.0'
