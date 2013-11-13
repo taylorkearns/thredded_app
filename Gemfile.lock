@@ -1,4 +1,31 @@
 GIT
+  remote: git://github.com/jayroh/thredded.git
+  revision: 9cb56114d6aa563f298b36bf17ff785ab818dc08
+  specs:
+    thredded (0.0.11)
+      bbcoder
+      cancan
+      carrierwave
+      escape_utils
+      fog
+      friendly_id
+      gemoji
+      github-markdown
+      gravtastic
+      griddler
+      html-pipeline
+      htmlentities
+      kaminari
+      mini_magick
+      multi_json
+      nested_form
+      nokogiri
+      rails (~> 4.0.0)
+      rinku
+      sanitize
+      unf
+
+GIT
   remote: git://github.com/rails/activerecord-session_store.git
   revision: 022d45b4ae9b7e862ee92ea8871c9bf4c2d93106
   specs:
@@ -47,7 +74,7 @@ GEM
       json
     arel (4.0.1)
     atomic (1.1.14)
-    bb-ruby (1.0.3)
+    bbcoder (1.0.1)
     bcrypt-ruby (3.1.2)
     bourne (1.5.0)
       mocha (>= 0.13.2, < 0.15)
@@ -146,16 +173,21 @@ GEM
       rspec (~> 2.0)
       rspec-instafail (~> 0.2.0)
       ruby-progressbar (~> 1.0)
+    gemoji (1.5.0)
     gherkin (2.12.2)
       multi_json (~> 1.3)
     git_remote_branch (0.3.7)
       rainbow
+    github-markdown (0.6.3)
     gravtastic (3.1.0)
     griddler (0.6.1)
       htmlentities
       rails (>= 3.2.0)
     hashie (2.0.5)
     hike (1.2.3)
+    html-pipeline (1.0.0)
+      activesupport (>= 2)
+      nokogiri (~> 1.4)
     htmlentities (4.3.1)
     httpauth (0.2.0)
     hub (1.10.6)
@@ -245,8 +277,6 @@ GEM
     rails_12factor (0.0.2)
       rails_serve_static_assets
       rails_stdout_logging
-    rails_emoji (1.7.0)
-      rails (>= 3.1.0)
     rails_serve_static_assets (0.0.1)
     rails_stdout_logging (0.0.2)
     railties (4.0.1)
@@ -257,7 +287,6 @@ GEM
     rainbow (1.1.4)
     rake (10.1.0)
     rb-fsevent (0.9.3)
-    redcarpet (3.0.0)
     redis (3.0.5)
     redis-namespace (1.3.1)
       redis (~> 3.0.0)
@@ -270,6 +299,7 @@ GEM
       vegas (~> 0.1.2)
     resque_mailer (2.2.5)
       actionmailer (>= 3.0)
+    rinku (1.7.3)
     rspec (2.12.0)
       rspec-core (~> 2.12.0)
       rspec-expectations (~> 2.12.0)
@@ -289,6 +319,8 @@ GEM
     ruby-hmac (0.4.0)
     ruby-progressbar (1.2.0)
     rubyzip (0.9.9)
+    sanitize (2.0.6)
+      nokogiri (>= 1.4.4)
     sass (3.2.12)
     sass-rails (4.0.1)
       railties (>= 4.0.0, < 5.0)
@@ -326,25 +358,6 @@ GEM
     thor (0.18.1)
     thread_safe (0.1.3)
       atomic
-    thredded (0.0.11)
-      bb-ruby
-      cancan
-      carrierwave
-      escape_utils
-      fog
-      friendly_id
-      gravtastic
-      griddler
-      htmlentities
-      kaminari
-      mini_magick
-      multi_json
-      nested_form
-      nokogiri
-      rails (~> 4.0.0)
-      rails_emoji
-      redcarpet
-      unf
     thredded_resque (0.0.2)
       rails (~> 4.0.0)
       resque
@@ -419,7 +432,7 @@ DEPENDENCIES
   shoulda-matchers (= 1.2.0)
   therubyracer
   thin
-  thredded
+  thredded!
   thredded_resque
   timecop
   uglifier

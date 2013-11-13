@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.0.0'
 
-gem 'thredded'
+gem 'thredded', github: 'jayroh/thredded'
 gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
 gem 'devise', '3.0.0.rc'
 gem 'escape_utils'

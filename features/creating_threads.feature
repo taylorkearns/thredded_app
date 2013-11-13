@@ -50,6 +50,6 @@ Background: Default site and messageboard
       And I go to the topic listing page
      Then I should not see "create a new topic"
       And I go to the new thread page for "thredded"
-     Then I should see "Sorry, you are not authorized to post on this messageboard."
+     Then I should see "You are not authorized to post in this messageboard"
       And I go to the most recently updated thread on "thredded"
      Then I should not see the post reply form

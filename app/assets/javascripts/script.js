@@ -1,4 +1,19 @@
 jQuery(document).ready(function() {
+
+  if( $('pre code').length ){
+    pre_code = $('pre code').parent();
+
+    $.each(pre_code, function(index, pre){
+      if(pre.attributes['lang'] != undefined){
+        language = pre.attributes['lang'].value;
+      } else {
+        language = 'none';
+      }
+
+      $(this).find('code').addClass('language-'+language);
+    })
+  }
+
   not_a_touch_device = !('ontouchstart' in document.documentElement)
 
   if($.cookie('qwoff')){ fartscroll(800); }
