@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/jayroh/thredded.git
-  revision: 6db8edb90a90b636baf16929f6fd511e2ab8fb9d
+  revision: 36ab17959d48944d00ae167da41b476f6cdcee68
   specs:
     thredded (0.0.11)
       bbcoder
