@@ -3,6 +3,7 @@ Thredded::Application.configure do
     config.middleware.use Rack::CanonicalHost, ENV['CANONICAL_HOST']
   end
 
+  config.threadsafe!
   config.eager_load = true
   config.cache_store = :dalli_store
   config.force_ssl = true
