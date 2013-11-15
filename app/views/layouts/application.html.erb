@@ -4,16 +4,19 @@
     <title><%= yield :page_title %></title>
     <%= stylesheet_link_tag 'application' %>
     <%= javascript_include_tag 'head' %>
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="shortcut icon" href="/favicon.png">
-    <link rel="author" href="/humans.txt">
-    <link rel="apple-touch-icon-precomposed" href="/images/touch-icon-iphone.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/touch-icon-ipad.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/touch-icon-iphone-retina.png">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/touch-icon-ipad-retina.png">
-    <link rel="apple-touch-startup-image" href="/images/startup-320x460.png" media="screen and (max-device-width : 320px)">
-    <link rel="apple-touch-startup-image" href="/images/startup-640x920.png" media="(max-device-width : 480px) and (-webkit-min-device-pixel-ratio : 2)">
-    <link rel="apple-touch-startup-image" href="/images/startup-640x1096.png" media="(max-device-width : 548px) and (-webkit-min-device-pixel-ratio : 2)">
+
+    <%= favicon_link_tag 'favicon.ico', rel: 'shortcut icon', type: nil %>
+    <%= favicon_link_tag 'favicon.png', rel: 'shortcut icon', type: nil %>
+    <%= favicon_link_tag 'humans.txt', rel: 'author', type: nil %>
+
+    <%= favicon_link_tag 'touch-icon-iphone.png', type: nil, rel: 'apple-touch-icon-precomposed' %>
+    <%= favicon_link_tag 'touch-icon-ipad.png', type: nil, rel: 'apple-touch-icon-precomposed', sizes: '72x72'  %>
+    <%= favicon_link_tag 'touch-icon-iphone-retina.png', type: nil, rel: 'apple-touch-icon-precomposed', sizes: '114x114' %>
+    <%= favicon_link_tag 'touch-icon-ipad-retina.png', type: nil, rel: 'apple-touch-icon-precomposed', sizes: '144x144' %>
+    <%= favicon_link_tag 'startup-320x460.png', type: nil, rel: 'apple-touch-startup-image', media: 'screen and (max-device-width : 320px)' %>
+    <%= favicon_link_tag 'startup-640x920.png', type: nil, rel: 'apple-touch-startup-image', media: '(max-device-width : 480px) and (-webkit-min-device-pixel-ratio : 2)' %>
+    <%= favicon_link_tag 'startup-640x1096.png', type: nil, rel: 'apple-touch-startup-image', media: '(max-device-width : 548px) and (-webkit-min-device-pixel-ratio : 2)' %>
+
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Thredded">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">

@@ -3,7 +3,6 @@ Thredded::Application.configure do
     config.middleware.use Rack::CanonicalHost, ENV['CANONICAL_HOST']
   end
 
-  config.threadsafe!
   config.eager_load = true
   config.cache_store = :dalli_store
   config.force_ssl = false
@@ -11,6 +10,11 @@ Thredded::Application.configure do
   config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
   config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
+
+  config.action_controller.asset_host = Proc.new do |source, request|
+    scheme = request.ssl? ? "https" : "http"
+    "#{scheme}://#{ENV['FOG_DIRECTORY']}.s3.amazonaws.com"
+  end
 
   config.serve_static_assets = true
   config.assets.cache_store = :dalli_store

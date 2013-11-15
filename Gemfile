@@ -34,6 +34,7 @@ group :staging, :production do
   gem 'rack-canonical-host'
   gem 'rails_12factor'
   gem 'thredded_resque'
+  gem 'asset_sync'
 end
 
 group :test, :cucumber do

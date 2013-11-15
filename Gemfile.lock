@@ -73,6 +73,9 @@ GEM
       builder
       json
     arel (4.0.1)
+    asset_sync (1.0.0)
+      activemodel
+      fog (>= 1.8.0)
     atomic (1.1.14)
     bbcoder (1.0.1)
     bcrypt-ruby (3.1.2)
@@ -389,6 +392,7 @@ DEPENDENCIES
   activerecord-session_store!
   addressable (~> 2.3.2)
   airbrake
+  asset_sync
   bourne
   cache_digests
   capybara (~> 2.0.2)
