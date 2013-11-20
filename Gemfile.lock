@@ -1,6 +1,14 @@
 GIT
+  remote: git://github.com/jayroh/html-pipeline.git
+  revision: 90d51ef6d3f76fb2c4ac1581a7876c9802d9daf2
+  specs:
+    html-pipeline (1.0.0)
+      activesupport (>= 2)
+      nokogiri (~> 1.4)
+
+GIT
   remote: git://github.com/jayroh/thredded.git
-  revision: 36ab17959d48944d00ae167da41b476f6cdcee68
+  revision: bd8d46ba712971bd873fe311f3c5d3b904381ebf
   specs:
     thredded (0.0.11)
       bbcoder
@@ -24,15 +32,6 @@ GIT
       rinku
       sanitize
       unf
-
-GIT
-  remote: git://github.com/rails/activerecord-session_store.git
-  revision: 022d45b4ae9b7e862ee92ea8871c9bf4c2d93106
-  specs:
-    activerecord-session_store (0.0.1)
-      actionpack (>= 4.0.0.beta, < 5)
-      activerecord (>= 4.0.0.beta, < 5)
-      railties (>= 4.0.0.beta, < 5)
 
 GIT
   remote: git://github.com/shorelabs/font-icons-rails.git
@@ -186,9 +185,6 @@ GEM
       rails (>= 3.2.0)
     hashie (2.0.5)
     hike (1.2.3)
-    html-pipeline (1.0.0)
-      activesupport (>= 2)
-      nokogiri (~> 1.4)
     htmlentities (4.3.1)
     httpauth (0.2.0)
     hub (1.10.6)
@@ -389,7 +385,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord-session_store!
   addressable (~> 2.3.2)
   airbrake
   asset_sync
@@ -413,6 +408,7 @@ DEPENDENCIES
   fuubar
   git_remote_branch
   gravtastic (= 3.1.0)
+  html-pipeline!
   hub
   jquery-rails
   launchy (~> 2.1.2)
