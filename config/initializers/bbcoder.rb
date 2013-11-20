@@ -19,4 +19,12 @@ BBCoder.configure do
     id = content.match(/(?<=v=)[a-zA-Z0-9\-_]+(?=&)|(?<=[0-9]\/)[^&\n]+|(?<=v=)[^&\n]+/)[0]
     %(<iframe class="youtube" width="560" height="315" src="//www.youtube.com/embed/#{id}?&rel=0&theme=light&showinfo=0&hd=1&autohide=1&color=white" frameborder="0" allowfullscreen="allowfullscreen"></iframe>)
   end
+
+  tag :spoilers do
+    %(<blockquote class="spoiler">#{content}</blockquote>)
+  end
+
+  tag :spoiler do
+    %(<blockquote class="spoiler">#{content}</blockquote>)
+  end
 end

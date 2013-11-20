@@ -72,7 +72,7 @@ section.topic > header {
     }
 
     footer {
-      margin-left: 57px;
+      margin: 10px 0 0 57px;
       font-size: .8em;
 
       @include respond-to(lts){
@@ -132,6 +132,7 @@ section.topic > header {
   h4 { font-size: 1.3em; }
   img { max-width: 100%; }
   p { line-height: 1.6em; }
+  p:empty { display: none; }
 
   .align_left {
     margin: 0 10px 10px 0;
@@ -178,9 +179,10 @@ section.topic > header {
         font-size: 10px;
         text-transform: uppercase;
         letter-spacing: 5px;
+        margin-bottom: 10px;
       }
 
-      &::selection, &::-moz-selection {
+      &:hover, &:active {
         color: black;
       }
     }
