@@ -14,13 +14,15 @@ Then /^the latest read post should not be set$/ do
 end
 
 Then /^the latest read post should be the (first|fifth|sixth) post$/ do |post_index|
+  posts = @topic.posts.order('id ASC')
+
   case post_index
   when 'first'
-    post = @topic.posts.first
+    post = posts.first
   when 'fifth'
-    post = @topic.posts[4]
+    post = posts[4]
   when
-    post = @topic.posts[5]
+    post = posts[5]
   end
 
   page.should have_css("section[data-latest-read='#{post.id}']")
