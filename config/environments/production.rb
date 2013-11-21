@@ -12,7 +12,7 @@ Thredded::Application.configure do
   config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
 
   config.action_controller.asset_host = Proc.new do |source, request|
-    scheme = request.ssl? ? "https" : "http"
+    scheme = request && request.ssl? ? "https" : "http"
     "#{scheme}://#{ENV['FOG_DIRECTORY']}.s3.amazonaws.com"
   end
 
